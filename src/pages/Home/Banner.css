@@ -1,0 +1,16 @@
+.custom-carousel .thumbs-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.custom-carousel .thumbs {
+    display: flex !important;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.swiper-with-margin .swiper-pagination {
+    position: static;
+    margin-top: 2rem; /* or adjust spacing as needed */
+    text-align: center;
+}
