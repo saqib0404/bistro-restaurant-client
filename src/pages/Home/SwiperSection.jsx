@@ -11,10 +11,12 @@ import slide3 from '../../assets/home/slide3.jpg';
 import slide4 from '../../assets/home/slide4.jpg';
 import slide5 from '../../assets/home/slide5.jpg';
 import chef from '../../assets/home/chef-service.jpg';
+import SectionTitle from '../../layout/components/SectionTitle';
 
 const SwiperSection = () => {
     return (
         <div className='mb-10'>
+            <SectionTitle heading={"ORDER ONLINE"} subHeading={"From 11:00am to 10:00pm"}/>
             <Swiper
                 slidesPerView={5}
                 spaceBetween={10}
@@ -52,7 +54,7 @@ const SwiperSection = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}>
-                <div className='text-center w-7/12 bg-white px-28 py-24 mx-20 my-12'>
+                <div className='text-center w-7/12 bg-white px-28 py-24 mx-20 my-12 hidden md:block'>
                     <h3 className='text-3xl font-semibold pb-5'>Bistro Restaurant</h3>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem quis minima debitis quisquam sed iste, molestiae similique tempore necessitatibus eum veritatis nemo, laboriosam voluptatum error doloremque! Laudantium iste reprehenderit accusantium ratione assumenda cumque sed, hic, repellendus tempora illum necessitatibus nulla inventore quidem consequatur voluptates! Iusto qui voluptatum a vero ducimus.</p>
                 </div>

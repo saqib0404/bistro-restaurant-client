@@ -11,6 +11,29 @@
 
 .swiper-with-margin .swiper-pagination {
     position: static;
-    margin-top: 2rem; /* or adjust spacing as needed */
+    margin-top: 2rem;
+    /* or adjust spacing as needed */
     text-align: center;
+}
+
+.featured {
+    position: relative;
+    background-image: url('../../assets/home/featured.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white; /* Optional, for better contrast */
+}
+
+.featured::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Adjust darkness here */
+    z-index: 1;
+}
+
+/* Make sure content is above the overlay */
+.featured > * {
+    position: relative;
+    z-index: 2;
 }
