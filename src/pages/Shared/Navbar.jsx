@@ -1,13 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
     const navOptions = <>
-        <li><a>Item 1</a></li>
-        <li><a>Item 3</a></li></>
+        <li><NavLink>Home</NavLink></li>
+        <li><NavLink to={'/menu'}>Menu</NavLink></li>
+    </>
 
     return (
-        <div className="navbar opacity-40 px-4 fixed z-10 bg-black text-white">
+        <div className="navbar opacity-60 px-4 fixed z-10 bg-black text-white">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
