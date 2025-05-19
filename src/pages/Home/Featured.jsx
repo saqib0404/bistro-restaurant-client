@@ -1,10 +1,10 @@
 import React from 'react'
-import SectionTitle from '../../layout/components/SectionTitle'
+import SectionTitle from '../../components/SectionTitle'
 import featured from '../../assets/home/featured.jpg'
 
 const Featured = () => {
     return (
-        <section className='featured max-w-screen-2xl mx-auto my-10 pt-10 pb-16 text-white px-2'>
+        <section className='featured max-w-screen-2xl mx-auto my-10 pt-10 pb-16 bg-fixed text-white px-2'>
             <SectionTitle subHeading="Check it out" heading="FROM OUR MENU" />
 
             <div className='flex flex-col md:flex-row justify-center items-center gap-8 max-w-screen-xl mx-auto'>

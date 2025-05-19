@@ -11,7 +11,7 @@ import slide3 from '../../assets/home/slide3.jpg';
 import slide4 from '../../assets/home/slide4.jpg';
 import slide5 from '../../assets/home/slide5.jpg';
 import chef from '../../assets/home/chef-service.jpg';
-import SectionTitle from '../../layout/components/SectionTitle';
+import SectionTitle from '../../components/SectionTitle';
 
 const SwiperSection = () => {
     return (
@@ -49,7 +49,7 @@ const SwiperSection = () => {
                 </SwiperSlide>
             </Swiper>
 
-            <div className='w-full flex justify-center max-w-screen-2xl mx-auto' style={{
+            <div className='w-full flex justify-center max-w-screen-2xl mx-auto bg-fixed' style={{
                 backgroundImage: `url(${chef})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
