@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import SectionTitle from '../../components/SectionTitle'
 import MenuItem from '../Shared/MenuItem';
+import useMenu from '../../hooks/useMenu';
 
 const Menus = () => {
-    const [menus, setMenus] = useState([]);
-    useEffect(() => {
-        fetch(`./menu.json`)
-            .then(res => res.json())
-            .then(data => {
-                const filtered = data?.filter(item => item.category === "popular")
-                setMenus(filtered)
-            })
-    }, [])
+    const [menus, loadingData] = useMenu();
+    const filteredMenus = menus?.filter(item => item.category === "popular")
+
+    // console.log(menus);
+    // useEffect(() => {
+    //     fetch(`./menu.json`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             const filtered = data?.filter(item => item.category === "popular")
+    //             setMenus(filtered)
+    //         })
+    // }, [])
 
     return (
         <section className='max-w-screen-2xl mx-auto mb-12 px-2'>
@@ -19,7 +23,7 @@ const Menus = () => {
 
             <div className='grid md:grid-cols-2 gap-4 px-2 max-w-5xl mx-auto'>
                 {
-                    menus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
+                    !loadingData && filteredMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
                 }
             </div>
             <div className="flex justify-center mt-6">
