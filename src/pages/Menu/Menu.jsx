@@ -25,11 +25,13 @@ const Menu = () => {
     const popularMenus = menus?.filter(item => item.category === "popular")
     const dessertMenus = menus?.filter(item => item.category === "dessert")
     const pizzaMenus = menus?.filter(item => item.category === "pizza")
+    const saladMenus = menus?.filter(item => item.category === "salad")
+    const soupMenus = menus?.filter(item => item.category === "soup")
 
     return (
         <>
             {/* Menu Page Banner */}
-            <Cover img={menuCover} title={'OUR MENU'} />
+            <Cover des="Would you like to try a dish?" img={menuCover} title={'OUR MENU'} />
 
 
             {/* Todays offer */}
@@ -70,7 +72,7 @@ const Menu = () => {
             <section className="my-7">
                 <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-w-screen-2xl mx-auto'>
                     {
-                        !loadingData && pizzaMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
+                        !loadingData && saladMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
                     }
                 </div>
                 <CmnBlackBtn text={"ORDER YOUR FAVOURITE FOOD"} />
@@ -81,7 +83,7 @@ const Menu = () => {
             <section className="my-7">
                 <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-w-screen-2xl mx-auto'>
                     {
-                        !loadingData && pizzaMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
+                        !loadingData && soupMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
                     }
                 </div>
                 <CmnBlackBtn text={"ORDER YOUR FAVOURITE FOOD"} />
