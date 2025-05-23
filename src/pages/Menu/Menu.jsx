@@ -4,6 +4,8 @@ import Cover from "../Shared/Cover";
 import menuCover from '../../assets/menu/banner3.jpg'
 import dessertsCover from '../../assets/menu/dessert-bg.jpeg'
 import pizzaCover from '../../assets/menu/pizza-bg.jpg'
+import saladCover from '../../assets/menu/salad-bg.jpg'
+import soupCover from '../../assets/menu/soup-bg.jpg'
 import useMenu from "../../hooks/useMenu";
 import SectionTitle from "../../components/SectionTitle";
 import MenuItem from "../Shared/MenuItem";
@@ -53,7 +55,29 @@ const Menu = () => {
             </section>
 
             {/* Pizzas */}
-            <Cover img={pizzaCover} title={'Desserts'} />
+            <Cover img={pizzaCover} title={'Pizzas'} />
+            <section className="my-7">
+                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-w-screen-2xl mx-auto'>
+                    {
+                        !loadingData && pizzaMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
+                    }
+                </div>
+                <CmnBlackBtn text={"ORDER YOUR FAVOURITE FOOD"} />
+            </section>
+
+            {/* Salads */}
+            <Cover img={saladCover} title={'Salads'} />
+            <section className="my-7">
+                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-w-screen-2xl mx-auto'>
+                    {
+                        !loadingData && pizzaMenus?.map(item => <MenuItem key={item._id} item={item} ></MenuItem>)
+                    }
+                </div>
+                <CmnBlackBtn text={"ORDER YOUR FAVOURITE FOOD"} />
+            </section>
+
+            {/* Soup */}
+            <Cover img={soupCover} title={'Soup'} />
             <section className="my-7">
                 <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-2 max-w-screen-2xl mx-auto'>
                     {
