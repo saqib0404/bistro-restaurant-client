@@ -15,17 +15,16 @@ import SectionTitle from '../../components/SectionTitle';
 
 const SwiperSection = () => {
     return (
-        <div className='mb-10'>
-            <SectionTitle heading={"ORDER ONLINE"} subHeading={"From 11:00am to 10:00pm"}/>
+        <div className='mb-10 px-5'>
+            <SectionTitle heading={"ORDER ONLINE"} subHeading={"From 11:00am to 10:00pm"} />
             <Swiper
-                slidesPerView={5}
-                spaceBetween={10}
-                centeredSlides={true}
+                slidesPerView={4}
+                spaceBetween={30}
                 pagination={{
                     clickable: true,
                 }}
                 modules={[Pagination]}
-                className="mySwiper swiper-with-margin my-10"
+                className="mySwiper swiper-with-margin my-10 max-w-screen-xl mx-auto "
             >
                 <SwiperSlide>
                     <img src={slide1} alt="" />
