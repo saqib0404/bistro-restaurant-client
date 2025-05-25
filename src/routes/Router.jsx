@@ -8,6 +8,7 @@ import Order from "../pages/Order/Order";
 import Authentication from "../layout/Authentication";
 import Login from "../pages/Authentication/Login";
 import Contacts from "../pages/Contacts/Contacts";
+import Register from "../pages/Authentication/Register";
 
 export const router = createBrowserRouter([
     // General Layout
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
             {
                 path: '/authentication/login',
                 element: <Login />
+            },
+            {
+                path: '/authentication/register',
+                element: <Register />
             },
         ]
     },

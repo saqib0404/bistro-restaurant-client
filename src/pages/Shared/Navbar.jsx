@@ -2,12 +2,15 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
 const Navbar = () => {
+    const navLinkClass = ({ isActive }) =>
+    `uppercase font-bold px-2 ${isActive ? 'text-yellow-500' : 'text-white'}`;
+
     const navOptions = <>
-        <li><NavLink>Home</NavLink></li>
-        <li><NavLink to={'/menu'}>Menu</NavLink></li>
-        <li><NavLink to={'/order'}>Order</NavLink></li>
-        <li><NavLink to={'/contacts'}>Contacts</NavLink></li>
-        <li><NavLink to={'/authentication/login'}>Login</NavLink></li>
+        <li><NavLink className={navLinkClass} to={'/'}>Home</NavLink></li>
+        <li><NavLink className={navLinkClass} to={'/menu'}>Menu</NavLink></li>
+        <li><NavLink className={navLinkClass} to={'/order'}>Order</NavLink></li>
+        <li><NavLink className={navLinkClass} to={'/contacts'}>Contacts</NavLink></li>
+        <li><NavLink className={navLinkClass} to={'/authentication/login'}>Login</NavLink></li>
     </>
 
     return (
@@ -34,7 +37,7 @@ const Navbar = () => {
                         {navOptions}
                     </ul>
                 </div>
-                <Link className="btn btn-ghost text-3xl">
+                <Link className="btn btn-ghost text-4xl">
                     Bistro Restaurant
                 </Link>
             </div>
