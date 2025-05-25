@@ -26,7 +26,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen grid place-items-center px-4">
-            <div className="grid md:grid-cols-2 items-center gap-4 border-2 shadow-2xl p-4">
+            <div className="grid md:grid-cols-2 items-center gap-6 border-2 shadow-2xl p-10 md:px-20 md:py-10">
 
                 {/* Left Image - hidden on small screens */}
                 <div className="hidden md:flex justify-center items-center">
