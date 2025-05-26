@@ -1,11 +1,13 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import { AuthContext } from '../../providers/AuthProvider';
 
 
 const Login = () => {
+    const { userLoading } = useContext(AuthContext)
     const location = useLocation().pathname;
     // Remove the slash and capitalize the first letter
     let formattedPath = location.replace("/authentication/", "")  // Remove "/authentication/"
@@ -17,6 +19,8 @@ const Login = () => {
         // Captcha
         loadCaptchaEnginge(4);
     }, [])
+    console.log(userLoading);
+
 
     const handleSubmit = e => {
         e.preventDefault();
