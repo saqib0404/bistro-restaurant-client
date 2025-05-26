@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 
 const Login = () => {
@@ -12,6 +13,9 @@ const Login = () => {
 
     useEffect(() => {
         document.title = `Bistro | ${formattedPath}`
+
+        // Captcha
+        loadCaptchaEnginge(4);
     }, [])
 
     const handleSubmit = e => {
@@ -21,6 +25,10 @@ const Login = () => {
         const password = form.password.value
         const captcha = form.captcha.value
         console.log(email, password, captcha);
+        // Validating captcha
+        if (!validateCaptcha(captcha)) {
+            return alert('Captcha Does Not Match');
+        }
 
     }
 
@@ -65,8 +73,9 @@ const Login = () => {
                             </div>
 
                             <div>
-                                <img src="https://dummyimage.com/120x40/cccccc/000000&text=UAgIuo" alt="Captcha" />
-                                <a className="text-blue-600 text-sm hover:underline">Reload Captcha</a>
+                                <div>
+                                    <LoadCanvasTemplate />
+                                </div>
                                 <input
                                     name='captcha'
                                     type="text"
