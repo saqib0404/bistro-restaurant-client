@@ -4,8 +4,10 @@ import contactsCover from '../../assets/contact/contacsCover.jpg'
 import SectionTitle from '../../components/SectionTitle'
 import Location from './Location '
 import ContactsForm from './ContactsForm'
+import useTitle from '../../hooks/useTitle'
 
 const Contacts = () => {
+    useTitle()
     return (
         <div>
             <Cover img={contactsCover} title={"Contact Us"} des="Would you like to try a dish?" />

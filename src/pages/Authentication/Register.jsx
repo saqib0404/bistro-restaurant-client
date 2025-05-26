@@ -2,17 +2,11 @@ import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
+import useTitle from '../../hooks/useTitle';
 
 
 const Register = () => {
-    const location = useLocation().pathname;
-    // Remove the slash and capitalize the first letter
-    let formattedPath = location.replace("/authentication/", "")  // Remove "/authentication/"
-        .replace(/^./, c => c.toUpperCase()); // Capitalize first letter
-
-    useEffect(() => {
-        document.title = `Bistro | ${formattedPath}`
-    }, [])
+    useTitle()
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -100,7 +94,7 @@ const Register = () => {
                         </div>
                     </div>
                 </div>
-        
+
                 {/* Left Image - hidden on small screens */}
                 <div className="hidden md:flex justify-center items-center">
                     <img src={loginImg} alt="Login Illustration" className="max-w-md" />

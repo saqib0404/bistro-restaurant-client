@@ -4,22 +4,16 @@ import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 
 
 const Login = () => {
-    const { userLoading } = useContext(AuthContext)
-    const location = useLocation().pathname;
-    // Remove the slash and capitalize the first letter
-    let formattedPath = location.replace("/authentication/", "")  // Remove "/authentication/"
-        .replace(/^./, c => c.toUpperCase()); // Capitalize first letter
-
+    useTitle()
     useEffect(() => {
-        document.title = `Bistro | ${formattedPath}`
-
-        // Captcha
+        // captcha
         loadCaptchaEnginge(4);
     }, [])
-    console.log(userLoading);
+
 
 
     const handleSubmit = e => {
@@ -38,6 +32,7 @@ const Login = () => {
 
     return (
         <div className="min-h-screen grid place-items-center px-4">
+
             <div className="grid md:grid-cols-2 items-center gap-6 border-2 shadow-2xl p-10 md:px-20 md:py-10">
 
                 {/* Left Image - hidden on small screens */}

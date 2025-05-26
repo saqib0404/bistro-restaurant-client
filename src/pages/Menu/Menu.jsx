@@ -10,16 +10,10 @@ import useMenu from "../../hooks/useMenu";
 import SectionTitle from "../../components/SectionTitle";
 import MenuItem from "../Shared/MenuItem";
 import CmnBlackBtn from "../../components/CmnBlackBtn";
+import useTitle from "../../hooks/useTitle";
 
 const Menu = () => {
-    const location = useLocation().pathname;
-    // Remove the slash and capitalize the first letter
-    let formattedPath = location.replace("/", "")  // Remove "/"
-        .replace(/^./, c => c.toUpperCase()); // Capitalize first letter
-
-    useEffect(() => {
-        document.title = `Bistro | ${formattedPath}`
-    }, [])
+    useTitle()
 
     const [menus, loadingData] = useMenu();
     const popularMenus = menus?.filter(item => item.category === "popular")
