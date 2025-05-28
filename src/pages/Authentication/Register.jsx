@@ -1,22 +1,18 @@
-import { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { useContext } from 'react'
+import { Link } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import useTitle from '../../hooks/useTitle';
+import { AuthContext } from '../../providers/AuthProvider';
+import { useForm } from 'react-hook-form';
 
 
 const Register = () => {
     useTitle()
+    const { signInUserWithEmail } = useContext(AuthContext)
+    const { register, formState: { errors }, handleSubmit, } = useForm()
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        const form = e.target;
-        const email = form.email.value
-        const name = form.name.value
-        const password = form.password.value
-        console.log(email, password, name);
-
-    }
+    const onSubmit = (data) => console.log(data)
 
     return (
         <div className="min-h-screen grid place-items-center px-4">
@@ -26,7 +22,7 @@ const Register = () => {
                 <div className="w-full">
                     <div className="max-w-md mx-auto">
                         <h2 className="text-3xl font-bold mb-6 text-center">Register</h2>
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                             <div>
                                 <label className="label">
                                     <span className="label-text font-medium">Name</span>
@@ -37,6 +33,7 @@ const Register = () => {
                                     placeholder="Type here"
                                     className="input input-bordered w-full focus:border-0 mt-1"
                                     required
+                                    {...register("name")}
                                 />
                             </div>
 
@@ -50,6 +47,7 @@ const Register = () => {
                                     placeholder="Type here"
                                     className="input input-bordered w-full focus:border-0 mt-1"
                                     required
+                                    {...register("email")}
                                 />
                             </div>
 
@@ -61,14 +59,28 @@ const Register = () => {
                                     name='password'
                                     type="password"
                                     placeholder="Enter your password"
-                                    className="input input-bordered w-full focus:border-0 mt-1"
+                                    className={`input input-bordered w-full mt-1 ${errors.password ? 'border-red-600 focus:border-red-600' : 'focus:border-0'}`}
+
                                     required
+                                    {...register("password", {
+                                        pattern: {
+                                            value: /^[A-Za-z]+$/i,
+                                            message: "Password must contain only letters",
+                                        },
+                                        minLength: {
+                                            value: 6,
+                                            message: "Password must be at least 6 characters",
+                                        },
+                                        maxLength: {
+                                            value: 12,
+                                            message: "Password cannot exceed 12 characters",
+                                        },
+                                    })}
                                 />
+                                {errors.password && <span className='text-red-600 font-semibold text-small'>{errors.password.message}</span>}
                             </div>
 
-                            <button className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none">
-                                Register
-                            </button>
+                            <input type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
                         </form>
 
                         <p className="text-center mt-4">
