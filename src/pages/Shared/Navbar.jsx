@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Navbar = () => {
+    const { user } = useContext(AuthContext)
+    console.log(user);
+
     const navLinkClass = ({ isActive }) =>
-    `uppercase font-bold px-2 ${isActive ? 'text-yellow-500' : 'text-white'}`;
+        `uppercase font-bold px-2 ${isActive ? 'text-yellow-500' : 'text-white'}`;
 
     const navOptions = <>
         <li><NavLink className={navLinkClass} to={'/'}>Home</NavLink></li>

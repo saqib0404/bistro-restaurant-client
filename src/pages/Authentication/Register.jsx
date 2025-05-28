@@ -9,10 +9,20 @@ import { useForm } from 'react-hook-form';
 
 const Register = () => {
     useTitle()
-    const { signInUserWithEmail } = useContext(AuthContext)
+    const { createUserWithEmail } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const onSubmit = (data) => {
+        createUserWithEmail(data.email, data.password)
+            .then((result) => {
+                console.log(result);
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+    }
 
     return (
         <div className="min-h-screen grid place-items-center px-4">
