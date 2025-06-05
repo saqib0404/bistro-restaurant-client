@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AuthContext } from '../../providers/AuthProvider';
+import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
     const { user } = useContext(AuthContext)
@@ -9,13 +10,24 @@ const Navbar = () => {
     const navLinkClass = ({ isActive }) =>
         `uppercase font-bold px-2 ${isActive ? 'text-yellow-500' : 'text-white'}`;
 
-    const navOptions = <>
+    const navOptions = <div className='md:flex items-center'>
         <li><NavLink className={navLinkClass} to={'/'}>Home</NavLink></li>
         <li><NavLink className={navLinkClass} to={'/menu'}>Menu</NavLink></li>
         <li><NavLink className={navLinkClass} to={'/order'}>Order</NavLink></li>
         <li><NavLink className={navLinkClass} to={'/contacts'}>Contacts</NavLink></li>
-        <li><NavLink className={navLinkClass} to={'/authentication/login'}>Login</NavLink></li>
-    </>
+         {
+      user ? (
+        <li className="flex-row items-center">
+          <button className="uppercase font-bold px-2 text-white">
+            Sign out
+          </button>
+          <FaUserCircle size={55} className="text-white" />
+        </li>
+      ) : (
+        <li><NavLink className={navLinkClass} to="/authentication/login">Login</NavLink></li>
+      )
+    }
+    </div>
 
     return (
         <div className="navbar opacity-70 px-4 fixed z-10 bg-black text-white">

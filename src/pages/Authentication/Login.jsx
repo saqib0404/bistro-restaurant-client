@@ -1,32 +1,40 @@
-import { useContext, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import { AuthContext } from '../../providers/AuthProvider';
 import useTitle from '../../hooks/useTitle';
+import { useForm } from 'react-hook-form';
 
 
 const Login = () => {
     useTitle()
+    const [authError, setAuthError] = useState('')
+    const navigate = useNavigate();
     useEffect(() => {
         // captcha
         loadCaptchaEnginge(4);
     }, [])
 
+    const { signInUserWithEmail } = useContext(AuthContext)
+    const { register, formState: { errors }, handleSubmit, } = useForm()
 
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        const form = e.target;
-        const email = form.email.value
-        const password = form.password.value
-        const captcha = form.captcha.value
-        console.log(email, password, captcha);
-        // Validating captcha
-        if (!validateCaptcha(captcha)) {
+    const onSubmit = (data) => {
+        if (!validateCaptcha(data.captcha)) {
             return alert('Captcha Does Not Match');
         }
+        signInUserWithEmail(data.email, data.password)
+            .then((result) => {
+                setAuthError("")
+                console.log(result);
+                navigate('/')
+
+            })
+            .catch((error) => {
+                setAuthError(error.message)
+                console.log(error);
+            });
 
     }
 
@@ -44,7 +52,7 @@ const Login = () => {
                 <div className="w-full">
                     <div className="max-w-md mx-auto">
                         <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
-                        <form onSubmit={handleSubmit} className="space-y-4">
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                             <div>
                                 <label className="label">
                                     <span className="label-text font-medium">Email</span>
@@ -55,6 +63,7 @@ const Login = () => {
                                     placeholder="Type here"
                                     className="input input-bordered w-full focus:border-0 mt-1"
                                     required
+                                    {...register("email")}
                                 />
                             </div>
 
@@ -68,7 +77,9 @@ const Login = () => {
                                     placeholder="Enter your password"
                                     className="input input-bordered w-full focus:border-0 mt-1"
                                     required
+                                    {...register("password")}
                                 />
+                                <span className='text-red-600 font-semibold text-small'>{authError}</span>
                             </div>
 
                             <div>
@@ -80,12 +91,12 @@ const Login = () => {
                                     type="text"
                                     placeholder="Type here"
                                     className="input input-bordered w-full mt-2 focus:border-0 "
+                                    {...register("captcha")}
                                 />
                             </div>
 
-                            <button className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none">
-                                Sign In
-                            </button>
+                            <input value="Log In"  type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
+                            
                         </form>
 
                         <p className="text-center mt-4">

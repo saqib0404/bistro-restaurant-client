@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import useTitle from '../../hooks/useTitle';
@@ -9,17 +9,22 @@ import { useForm } from 'react-hook-form';
 
 const Register = () => {
     useTitle()
+    const [authError, setAuthError] = useState('')
+    const navigate = useNavigate();
     const { createUserWithEmail } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, } = useForm()
 
     const onSubmit = (data) => {
         createUserWithEmail(data.email, data.password)
             .then((result) => {
+                setAuthError("")
                 console.log(result);
+                navigate('/')
 
             })
             .catch((error) => {
-                console.log(error);
+                setAuthError(error.message)
+                console.log(error.message);
             });
 
     }
@@ -87,10 +92,11 @@ const Register = () => {
                                         },
                                     })}
                                 />
+                                <span className='text-red-600 font-semibold text-small'>{authError}</span>
                                 {errors.password && <span className='text-red-600 font-semibold text-small'>{errors.password.message}</span>}
                             </div>
 
-                            <input type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
+                            <input value="Register" type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
                         </form>
 
                         <p className="text-center mt-4">
