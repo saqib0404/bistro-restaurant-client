@@ -2,10 +2,25 @@ import React, { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AuthContext } from '../../providers/AuthProvider';
 import { FaUserCircle } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext)
+    const { user, userSignOut } = useContext(AuthContext)
     console.log(user);
+
+    const handleSignOut = () => {
+        userSignOut()
+            .then(() => {
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Logged Out ",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            )
+    }
 
     const navLinkClass = ({ isActive }) =>
         `uppercase font-bold px-2 ${isActive ? 'text-yellow-500' : 'text-white'}`;
@@ -15,18 +30,18 @@ const Navbar = () => {
         <li><NavLink className={navLinkClass} to={'/menu'}>Menu</NavLink></li>
         <li><NavLink className={navLinkClass} to={'/order'}>Order</NavLink></li>
         <li><NavLink className={navLinkClass} to={'/contacts'}>Contacts</NavLink></li>
-         {
-      user ? (
-        <li className="flex-row items-center">
-          <button className="uppercase font-bold px-2 text-white">
-            Sign out
-          </button>
-          <FaUserCircle size={55} className="text-white" />
-        </li>
-      ) : (
-        <li><NavLink className={navLinkClass} to="/authentication/login">Login</NavLink></li>
-      )
-    }
+        {
+            user ? (
+                <li className="flex-row items-center">
+                    <button onClick={handleSignOut} className="uppercase font-bold px-2 text-white">
+                        Sign out
+                    </button>
+                    <FaUserCircle size={55} className="text-white" />
+                </li>
+            ) : (
+                <li><NavLink className={navLinkClass} to="/authentication/login">Login</NavLink></li>
+            )
+        }
     </div>
 
     return (

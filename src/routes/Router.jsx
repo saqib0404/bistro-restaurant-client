@@ -9,6 +9,7 @@ import Authentication from "../layout/Authentication";
 import Login from "../pages/Authentication/Login";
 import Contacts from "../pages/Contacts/Contacts";
 import Register from "../pages/Authentication/Register";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     // General Layout
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'contacts',
-                element: <Contacts />
+                element: <PrivateRoute><Contacts /></PrivateRoute>
             },
         ]
     },

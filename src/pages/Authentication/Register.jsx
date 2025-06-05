@@ -1,25 +1,34 @@
 import { useContext, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import loginImg from '../../assets/auth/login.png'
 import { FaFacebookF, FaGoogle, FaGithub } from 'react-icons/fa';
 import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 
 const Register = () => {
     useTitle()
-    const [authError, setAuthError] = useState('')
     const navigate = useNavigate();
+    const location = useLocation()
+    const [authError, setAuthError] = useState('')
     const { createUserWithEmail } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, } = useForm()
+    const from = location.state || "/";
 
     const onSubmit = (data) => {
         createUserWithEmail(data.email, data.password)
             .then((result) => {
                 setAuthError("")
-                console.log(result);
-                navigate('/')
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "New Account Registered ",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate(from, { replace: true });
 
             })
             .catch((error) => {

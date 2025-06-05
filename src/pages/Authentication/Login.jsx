@@ -6,19 +6,24 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { AuthContext } from '../../providers/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 
 const Login = () => {
     useTitle()
-    const [authError, setAuthError] = useState('')
     const navigate = useNavigate();
+    const location = useLocation()
+    const [authError, setAuthError] = useState('')
+    const { signInUserWithEmail } = useContext(AuthContext)
+    const { register, formState: { errors }, handleSubmit, } = useForm()
+    const from = location.state || "/";
+
+
     useEffect(() => {
         // captcha
         loadCaptchaEnginge(4);
     }, [])
 
-    const { signInUserWithEmail } = useContext(AuthContext)
-    const { register, formState: { errors }, handleSubmit, } = useForm()
 
     const onSubmit = (data) => {
         if (!validateCaptcha(data.captcha)) {
@@ -27,9 +32,14 @@ const Login = () => {
         signInUserWithEmail(data.email, data.password)
             .then((result) => {
                 setAuthError("")
-                console.log(result);
-                navigate('/')
-
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Logged In ",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                 navigate(from, { replace: true });
             })
             .catch((error) => {
                 setAuthError(error.message)
@@ -95,8 +105,8 @@ const Login = () => {
                                 />
                             </div>
 
-                            <input value="Log In"  type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
-                            
+                            <input value="Log In" type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
+
                         </form>
 
                         <p className="text-center mt-4">
