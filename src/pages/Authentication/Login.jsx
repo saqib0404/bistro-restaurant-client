@@ -14,7 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation()
     const [authError, setAuthError] = useState('')
-    const { signInUserWithEmail } = useContext(AuthContext)
+    const { signInUserWithEmail, createUserWithGoogle } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, } = useForm()
     const from = location.state || "/";
 
@@ -24,6 +24,26 @@ const Login = () => {
         loadCaptchaEnginge(4);
     }, [])
 
+    const handleGoogleSignIn = () => {
+        createUserWithGoogle()
+            .then(res => {
+                setAuthError("")
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Logged In",
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate(from, { replace: true });
+
+            })
+            .catch((error) => {
+                setAuthError(error.message)
+                console.log(error);
+            });
+
+    }
 
     const onSubmit = (data) => {
         if (!validateCaptcha(data.captcha)) {
@@ -39,7 +59,7 @@ const Login = () => {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                 navigate(from, { replace: true });
+                navigate(from, { replace: true });
             })
             .catch((error) => {
                 setAuthError(error.message)
@@ -122,7 +142,7 @@ const Login = () => {
                                 <FaFacebookF className="w-5 h-5" />
                             </button>
 
-                            <button className="btn btn-outline btn-circle" aria-label="Login with Google">
+                            <button onClick={handleGoogleSignIn} className="btn btn-outline btn-circle" aria-label="Login with Google">
                                 <FaGoogle className="w-5 h-5" />
                             </button>
 
