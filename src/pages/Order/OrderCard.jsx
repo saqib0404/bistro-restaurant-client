@@ -3,11 +3,15 @@ import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useCart from '../../hooks/useCart';
 
 const OrderCard = ({ menus }) => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation()
+    const axiosSecure = useAxiosSecure()
+    const [, refetch] = useCart()
 
     const handleAddToCart = food => {
         if (user && user.email) {
@@ -17,7 +21,7 @@ const OrderCard = ({ menus }) => {
                 foodName: food.name
             }
 
-            axios.post("http://localhost:8000/carts", cartItem,)
+            axiosSecure.post("/carts", cartItem,)
                 .then(res => {
                     if (res.data.insertedId) {
                         Swal.fire({
@@ -27,6 +31,7 @@ const OrderCard = ({ menus }) => {
                             timer: 1500
                         });
                     }
+                    refetch()
                 })
 
         } else {
