@@ -19,7 +19,7 @@ const OrderSection = () => {
             <Tabs>
                 <TabList
                     className="flex justify-center my-6 space-x-6 font-medium text-xl"
-                    defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+                    defaultindex={tabIndex} onSelect={(index) => setTabIndex(index)}>
                     <Tab>Salad</Tab>
                     <Tab>Pizza</Tab>
                     <Tab>Soup</Tab>
