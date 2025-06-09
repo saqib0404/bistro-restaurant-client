@@ -30,7 +30,7 @@ const Navbar = () => {
         <li><NavLink className={navLinkClass} to={'/'}>Home</NavLink></li>
         <li><NavLink className={navLinkClass} to={'/menu'}>Menu</NavLink></li>
         <li>
-            <NavLink className={navLinkClass} to={'/shop'}>
+            <NavLink className={navLinkClass} to={'/dashboard/cart'}>
                 <FaShoppingCart /> <div className="badge badge-sm badge-secondary">{`+${cart.length}` || "+0"}</div>
             </NavLink>
         </li>

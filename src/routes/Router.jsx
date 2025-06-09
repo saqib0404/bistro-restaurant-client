@@ -10,6 +10,8 @@ import Login from "../pages/Authentication/Login";
 import Contacts from "../pages/Contacts/Contacts";
 import Register from "../pages/Authentication/Register";
 import PrivateRoute from "./PrivateRoute";
+import Cart from "../pages/Dashboard/Cart";
+import Dashboard from "../layout/Dashboard";
 
 export const router = createBrowserRouter([
     // General Layout
@@ -46,6 +48,37 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/authentication/register',
+                element: <Register />
+            },
+        ]
+    },
+    // Dashboard Layout
+    {
+        path: '/dashboard',
+        element: <Dashboard />,
+        children: [
+            {
+                path: '/dashboard/cart',
+                element: <Cart />
+            },
+            {
+                path: '/dashboard/user-home',
+                element: <Register />
+            },
+            {
+                path: '/dashboard/reservation',
+                element: <Register />
+            },
+            {
+                path: '/dashboard/payment-history',
+                element: <Register />
+            },
+            {
+                path: '/dashboard/add-review',
+                element: <Register />
+            },
+            {
+                path: '/dashboard/user-bookings',
                 element: <Register />
             },
         ]
