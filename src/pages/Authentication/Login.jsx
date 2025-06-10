@@ -14,6 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation()
     const [authError, setAuthError] = useState('')
+    const [disableBtn, setDisableBtn] = useState(false)
     const { signInUserWithEmail, createUserWithGoogle } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, } = useForm()
     const from = location.state || "/";
@@ -25,6 +26,7 @@ const Login = () => {
     }, [])
 
     const handleGoogleSignIn = () => {
+        setDisableBtn(true)
         createUserWithGoogle()
             .then(res => {
                 setAuthError("")
@@ -33,12 +35,14 @@ const Login = () => {
                     icon: "success",
                     title: "Logged In",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000
                 })
+                setDisableBtn(false)
                 navigate(from, { replace: true });
 
             })
             .catch((error) => {
+                setDisableBtn(false)
                 setAuthError(error.message)
                 console.log(error);
             });
@@ -46,6 +50,7 @@ const Login = () => {
     }
 
     const onSubmit = (data) => {
+        setDisableBtn(true)
         if (!validateCaptcha(data.captcha)) {
             return alert('Captcha Does Not Match');
         }
@@ -57,11 +62,13 @@ const Login = () => {
                     icon: "success",
                     title: "Logged In ",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000
                 })
+                setDisableBtn(false)
                 navigate(from, { replace: true });
             })
             .catch((error) => {
+                setDisableBtn(false)
                 setAuthError(error.message)
                 console.log(error);
             });
@@ -125,7 +132,7 @@ const Login = () => {
                                 />
                             </div>
 
-                            <input value="Log In" type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
+                            <input disabled={disableBtn} value="Log In" type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
 
                         </form>
 

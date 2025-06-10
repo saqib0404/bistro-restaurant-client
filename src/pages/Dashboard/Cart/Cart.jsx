@@ -1,15 +1,45 @@
 import { RiDeleteBinLine } from "react-icons/ri"
 import SectionTitle from "../../../components/SectionTitle"
 import useCart from "../../../hooks/useCart"
+import Swal from "sweetalert2"
+import useAxiosSecure from "../../../hooks/useAxiosSecure"
 
 const Cart = () => {
-    const [cart] = useCart()
+    const [cart, refetch] = useCart()
     const totalPrice = cart.reduce((sum, item) => sum + item.foodPrice, 0);
+    const axiosSecure = useAxiosSecure()
+
+    const handleDelete = id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/carts/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+
+    }
 
     return (
         <div className="bg-base-200 pb-10">
             <div className="-my-7 pt-10">
-                <SectionTitle heading={"Wanna add more"} subHeading={"My Cart"} />
+                <SectionTitle heading={"Wanna add more?"} subHeading={"My Cart"} />
             </div>
 
             <div className="bg-white p-4 rounded-lg max-w-screen-xl mx-auto mt-16">
@@ -23,7 +53,7 @@ const Cart = () => {
 
                     <table className="table">
                         {/* head */}
-                        <thead className="bg-[#D1A054] text-white font-medium">
+                        <thead className="bg-[#D1A054] text-lg text-white font-medium">
                             <tr >
                                 <th></th>
                                 <td>ITEM IMAGE</td>
@@ -32,7 +62,7 @@ const Cart = () => {
                                 <td>ACTION</td>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="text-lg">
                             {/* row 1 */}
                             {
                                 cart.length ?
@@ -40,7 +70,7 @@ const Cart = () => {
                                         <th>{idx + 1}</th>
                                         <td>
                                             <div className="avatar">
-                                                <div className="mask mask-squircle w-28">
+                                                <div className="mask mask-squircle w-20 md:w-28">
                                                     <img
                                                         src={cartItem.foodImg}
                                                         alt="food" />
@@ -50,7 +80,7 @@ const Cart = () => {
                                         <td>{cartItem.foodName}</td>
                                         <td>${cartItem.foodPrice}</td>
                                         <td>
-                                            <button className="btn btn-secondary"><RiDeleteBinLine className="text-3xl" /></button>
+                                            <button onClick={() => handleDelete(cartItem._id)} className="btn btn-secondary"><RiDeleteBinLine className="text-3xl" /></button>
                                         </td>
                                     </tr>)
                                     : (

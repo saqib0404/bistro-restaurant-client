@@ -12,12 +12,14 @@ const Register = () => {
     useTitle()
     const navigate = useNavigate();
     const location = useLocation()
+    const [disableBtn, setDisableBtn] = useState(false)
     const [authError, setAuthError] = useState('')
     const { createUserWithEmail } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit, } = useForm()
     const from = location.state || "/";
 
     const onSubmit = (data) => {
+        setDisableBtn(true)
         createUserWithEmail(data.email, data.password)
             .then((result) => {
                 setAuthError("")
@@ -26,12 +28,14 @@ const Register = () => {
                     icon: "success",
                     title: "New Account Registered ",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000
                 })
+                setDisableBtn(false)
                 navigate(from, { replace: true });
 
             })
             .catch((error) => {
+                setDisableBtn(false)
                 setAuthError(error.message)
                 console.log(error.message);
             });
@@ -105,7 +109,7 @@ const Register = () => {
                                 {errors.password && <span className='text-red-600 font-semibold text-small'>{errors.password.message}</span>}
                             </div>
 
-                            <input value="Register" type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
+                            <input disabled={disableBtn} value="Register" type='submit' className="btn btn-primary w-full bg-gradient-to-r from-amber-400 to-amber-600 text-white border-none" />
                         </form>
 
                         <p className="text-center mt-4">

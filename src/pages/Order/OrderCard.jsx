@@ -30,7 +30,7 @@ const OrderCard = ({ menus }) => {
                             icon: "success",
                             title: "Item added to your cart",
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1000
                         });
                     }
                     refetch()

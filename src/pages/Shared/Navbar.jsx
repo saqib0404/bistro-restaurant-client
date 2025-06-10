@@ -17,7 +17,7 @@ const Navbar = () => {
                     icon: "success",
                     title: "Logged Out ",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1000
                 })
             }
             )
