@@ -10,7 +10,7 @@ import Login from "../pages/Authentication/Login";
 import Contacts from "../pages/Contacts/Contacts";
 import Register from "../pages/Authentication/Register";
 import PrivateRoute from "./PrivateRoute";
-import Cart from "../pages/Dashboard/Cart";
+import Cart from "../pages/Dashboard/Cart/Cart";
 import Dashboard from "../layout/Dashboard";
 
 export const router = createBrowserRouter([

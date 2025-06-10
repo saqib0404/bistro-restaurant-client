@@ -1,3 +1,4 @@
+import { CgPullClear } from "react-icons/cg"
 import { FaCalendarAlt, FaHome, FaShoppingBag, FaWallet } from "react-icons/fa"
 import { FaCartShopping } from "react-icons/fa6"
 import { GiHamburgerMenu } from "react-icons/gi"
@@ -10,14 +11,14 @@ const Dashboard = () => {
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-            <div className="drawer-content flex flex-col items-center justify-center">
+            <div className="drawer-content">
                 {/* Page content here */}
-                <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">
-                    Open Menu Bar
+                <label htmlFor="my-drawer-2" className="btn bg-[#D1A054] my-4 mx-2 text-white drawer-button lg:hidden">
+                    <CgPullClear /> Open Menu Bar
                 </label>
                 <Outlet />
             </div>
-            =
+
             <aside className="drawer-side bg-[#D1A054] text-xl">
                 <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
                 <ul className="bg-[#D1A054] text-base-content space-y-2 min-h-full w-80 p-4">
@@ -57,10 +58,6 @@ const Dashboard = () => {
                     </li>
                 </ul>
             </aside>
-
-            {/* <div className="flex-1">
-                <Outlet />
-            </div> */}
         </div>
     )
 }
