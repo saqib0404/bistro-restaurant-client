@@ -6,12 +6,14 @@ import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../providers/AuthProvider';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 const Register = () => {
     useTitle()
     const navigate = useNavigate();
     const location = useLocation()
+    const axiosPublic = useAxiosPublic()
     const [disableBtn, setDisableBtn] = useState(false)
     const [authError, setAuthError] = useState('')
     const { createUserWithEmail } = useContext(AuthContext)
@@ -22,17 +24,23 @@ const Register = () => {
         setDisableBtn(true)
         createUserWithEmail(data.email, data.password)
             .then((result) => {
-                setAuthError("")
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "New Account Registered ",
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-                setDisableBtn(false)
-                navigate(from, { replace: true });
-
+                const userInfo = {
+                    email: data.email,
+                    name: data.name
+                }
+                axiosPublic.post(`/users`, userInfo)
+                    .then(res => {
+                        setAuthError("")
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "New Account Registered ",
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        setDisableBtn(false)
+                        navigate(from, { replace: true });
+                    })
             })
             .catch((error) => {
                 setDisableBtn(false)

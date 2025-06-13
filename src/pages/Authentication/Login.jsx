@@ -7,11 +7,13 @@ import { AuthContext } from '../../providers/AuthProvider';
 import useTitle from '../../hooks/useTitle';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 
 const Login = () => {
     useTitle()
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic()
     const location = useLocation()
     const [authError, setAuthError] = useState('')
     const [disableBtn, setDisableBtn] = useState(false)
@@ -29,17 +31,23 @@ const Login = () => {
         setDisableBtn(true)
         createUserWithGoogle()
             .then(res => {
-                setAuthError("")
-                Swal.fire({
-                    position: "top-end",
-                    icon: "success",
-                    title: "Logged In",
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-                setDisableBtn(false)
-                navigate(from, { replace: true });
-
+                const userInfo = {
+                    email: res.user.email,
+                    name: res.user.displayName
+                }
+                axiosPublic.post(`/users`, userInfo)
+                    .then(res => {
+                        setAuthError("")
+                        Swal.fire({
+                            position: "top-end",
+                            icon: "success",
+                            title: "Logged In",
+                            showConfirmButton: false,
+                            timer: 1000
+                        })
+                        setDisableBtn(false)
+                        navigate(from, { replace: true });
+                    })
             })
             .catch((error) => {
                 setDisableBtn(false)
@@ -56,6 +64,7 @@ const Login = () => {
         }
         signInUserWithEmail(data.email, data.password)
             .then((result) => {
+
                 setAuthError("")
                 Swal.fire({
                     position: "top-end",
