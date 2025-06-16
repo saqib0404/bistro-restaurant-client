@@ -12,6 +12,7 @@ import Register from "../pages/Authentication/Register";
 import PrivateRoute from "./PrivateRoute";
 import Cart from "../pages/Dashboard/Cart/Cart";
 import Dashboard from "../layout/Dashboard";
+import AllUsers from "../pages/Dashboard/Admin/AllUsers";
 
 export const router = createBrowserRouter([
     // General Layout
@@ -80,6 +81,11 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/user-bookings',
                 element: <Register />
+            },
+            // ADMIN
+            {
+                path: '/dashboard/all-users',
+                element: <AllUsers />
             },
         ]
     },

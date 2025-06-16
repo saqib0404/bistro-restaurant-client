@@ -1,17 +1,23 @@
 import { CgPullClear } from "react-icons/cg"
-import { FaCalendarAlt, FaHome, FaShoppingBag, FaWallet } from "react-icons/fa"
+import { FaBars, FaBook, FaCalendarAlt, FaHome, FaShoppingBag, FaUsers, FaWallet } from "react-icons/fa"
 import { FaCartShopping } from "react-icons/fa6"
 import { GiHamburgerMenu } from "react-icons/gi"
 import { MdMail, MdReviews } from "react-icons/md"
+import { PiForkKnifeFill } from "react-icons/pi"
 import { RiReservedFill } from "react-icons/ri"
 import { NavLink, Outlet } from "react-router-dom"
 
 const Dashboard = () => {
+    const navLinkClass = ({ isActive }) =>
+        `flex items-center gap-2 uppercase font-semibold ${isActive ? 'text-white' : 'text-black'}`;
+
+    const isAdmin = true;
+
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-            <div className="drawer-content">
+            <div className="drawer-content bg-base-200">
                 {/* Page content here */}
                 <label htmlFor="my-drawer-2" className="btn bg-[#D1A054] my-4 mx-2 text-white drawer-button lg:hidden">
                     <CgPullClear /> Open Menu Bar
@@ -24,17 +30,31 @@ const Dashboard = () => {
                 <ul className="bg-[#D1A054] text-base-content space-y-2 min-h-full w-80 p-4">
                     <h3 className="text-4xl text-center font-semibold py-4">Bistro Restaurant</h3>
 
-                    <NavLink className="flex items-center gap-2" to='/dashboard/user-home'><FaHome />  USER HOME</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/dashboard/cart'> <FaCalendarAlt />RESERVATION</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/dashboard/cart'><FaWallet />  PAYMENT HISTORY</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/dashboard/cart'><FaCartShopping /> MY CART</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/dashboard/cart'><MdReviews />  ADD REVIEW</NavLink>
-                    <NavLink className="flex items-center gap-2 pb-5" to='/dashboard/cart'><RiReservedFill /> MY BOOKING</NavLink>
+                    {
+                        isAdmin ? <>
+                            <NavLink className={navLinkClass} to='/dashboard/user-home'><FaHome />  ADMIN HOME</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/caasrt'> <PiForkKnifeFill />ADD ITEMS</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/carasdt'><FaBars />  MANAGE ITEMS</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/cart'><FaCartShopping /> MY CART</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/carddt'><FaBook /> MANAGE BOOKINGS</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/carqqt'><MdReviews />  ADD REVIEW</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/all-users'><FaUsers /> ALL USERS</NavLink>
+                        </>
+                            :
+                            <>
+                                <NavLink className={navLinkClass} to='/dashboard/user-home'><FaHome />  USER HOME</NavLink>
+                                <NavLink className={navLinkClass} to='/dashboard/cadsrt'> <FaCalendarAlt />RESERVATION</NavLink>
+                                <NavLink className={navLinkClass} to='/dashboard/cacrt'><FaWallet />  PAYMENT HISTORY</NavLink>
+                                <NavLink className={navLinkClass} to='/dashboard/cart'><FaCartShopping /> MY CART</NavLink>
+                                <NavLink className={navLinkClass} to='/dashboard/caawert'><MdReviews />  ADD REVIEW</NavLink>
+                                <NavLink className={navLinkClass} to='/dashboard/caffrt'><RiReservedFill /> MY BOOKING</NavLink>
+                            </>
+                    }
 
                     <div className="w-11/12 border border-white border-opacity-80 mx-auto my-10"></div>
 
                     <NavLink className="flex items-center gap-2 pt-5" to='/'><FaHome />  HOME</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/menu'><GiHamburgerMenu /> Menu</NavLink>
+                    <NavLink className="flex items-center gap-2" to='/menu'><GiHamburgerMenu /> MENU</NavLink>
                     <NavLink className="flex items-center gap-2" to='/order'><FaShoppingBag /> SHOP</NavLink>
                     <NavLink className="flex items-center gap-2" to='/contacts'><MdMail /> CONTACT</NavLink>
                 </ul>

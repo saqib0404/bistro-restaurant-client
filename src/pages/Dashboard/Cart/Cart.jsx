@@ -70,7 +70,7 @@ const Cart = () => {
                                         <th>{idx + 1}</th>
                                         <td>
                                             <div className="avatar">
-                                                <div className="mask mask-squircle w-20 md:w-28">
+                                                <div className="mask mask-squircle w-20 md:w-24">
                                                     <img
                                                         src={cartItem.foodImg}
                                                         alt="food" />
@@ -80,7 +80,7 @@ const Cart = () => {
                                         <td>{cartItem.foodName}</td>
                                         <td>${cartItem.foodPrice}</td>
                                         <td>
-                                            <button onClick={() => handleDelete(cartItem._id)} className="btn btn-secondary"><RiDeleteBinLine className="text-3xl" /></button>
+                                            <button onClick={() => handleDelete(cartItem._id)} className="btn btn-square btn-lg btn-soft btn-secondary"><RiDeleteBinLine className="text-xl" /></button>
                                         </td>
                                     </tr>)
                                     : (
