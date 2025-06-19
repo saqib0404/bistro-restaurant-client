@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SectionTitle from '../../../components/SectionTitle'
 import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import { FaUsers } from 'react-icons/fa'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import { AuthContext } from '../../../providers/AuthProvider'
 
 const AllUsers = () => {
-    const axiosSecure = useAxiosSecure()
+    const axiosSecure = useAxiosSecure();
+    const { user } = useContext(AuthContext);
 
     const { data: users = [] } = useQuery({
         queryKey: ['users'],
@@ -47,15 +49,15 @@ const AllUsers = () => {
                             {/* row 1 */}
                             {
                                 users.length ?
-                                    users.map((user, idx) => <tr key={user._id}>
+                                    users.filter(filteredUser => filteredUser.email !== user?.email).map((userData, idx) => <tr key={userData._id}>
                                         <th>{idx + 1}</th>
-                                        <td>{user.name}</td>
-                                        <td>{user.email}</td>
+                                        <td>{userData.name}</td>
+                                        <td>{userData.email}</td>
                                         <td>
                                             <button className="btn btn-square btn-soft btn-lg btn-accent"><FaUsers className="text-xl" /></button>
                                         </td>
                                         <td>
-                                            <button onClick={() => handleDelete(user._id)} className="btn btn-square btn-lg btn-soft btn-secondary"><RiDeleteBinLine className="text-xl" /></button>
+                                            <button onClick={() => handleDelete(userData._id)} className="btn btn-square btn-lg btn-soft btn-secondary"><RiDeleteBinLine className="text-xl" /></button>
                                         </td>
                                     </tr>)
                                     : (
