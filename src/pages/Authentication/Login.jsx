@@ -59,9 +59,9 @@ const Login = () => {
 
     const onSubmit = (data) => {
         setDisableBtn(true)
-        if (!validateCaptcha(data.captcha)) {
-            return alert('Captcha Does Not Match');
-        }
+        // if (!validateCaptcha(data.captcha)) {
+        //     return alert('Captcha Does Not Match');
+        // }
         signInUserWithEmail(data.email, data.password)
             .then((result) => {
 

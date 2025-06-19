@@ -6,12 +6,13 @@ import { MdMail, MdReviews } from "react-icons/md"
 import { PiForkKnifeFill } from "react-icons/pi"
 import { RiReservedFill } from "react-icons/ri"
 import { NavLink, Outlet } from "react-router-dom"
+import useAdminCheck from "../hooks/useAdminCheck"
 
 const Dashboard = () => {
     const navLinkClass = ({ isActive }) =>
         `flex items-center gap-2 uppercase font-semibold ${isActive ? 'text-white' : 'text-black'}`;
 
-    const isAdmin = true;
+    const [isAdmin] = useAdminCheck();
 
     return (
         <div className="drawer lg:drawer-open">
@@ -53,10 +54,10 @@ const Dashboard = () => {
 
                     <div className="w-11/12 border border-white border-opacity-80 mx-auto my-10"></div>
 
-                    <NavLink className="flex items-center gap-2 pt-5" to='/'><FaHome />  HOME</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/menu'><GiHamburgerMenu /> MENU</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/order'><FaShoppingBag /> SHOP</NavLink>
-                    <NavLink className="flex items-center gap-2" to='/contacts'><MdMail /> CONTACT</NavLink>
+                    <NavLink className="flex items-center gap-2 font-semibold" to='/'><FaHome />  HOME</NavLink>
+                    <NavLink className="flex items-center gap-2 font-semibold" to='/menu'><GiHamburgerMenu /> MENU</NavLink>
+                    <NavLink className="flex items-center gap-2 font-semibold" to='/order'><FaShoppingBag /> SHOP</NavLink>
+                    <NavLink className="flex items-center gap-2 font-semibold" to='/contacts'><MdMail /> CONTACT</NavLink>
                 </ul>
             </aside>
         </div>
