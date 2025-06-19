@@ -19,6 +19,32 @@ const AllUsers = () => {
         }
     })
 
+    const handleMakeAdmin = id => {
+        Swal.fire({
+            title: "Are you sure you want to make this user an admin?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.patch(`/users/admin/${id}`)
+                    .then(res => {
+                        if (res.data.modifiedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Admin made!",
+                                text: "User has been made an Admin.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
+    }
+
     const handleDelete = id => {
         Swal.fire({
             title: "Are you sure?",
@@ -77,7 +103,12 @@ const AllUsers = () => {
                                         <td>{userData.name}</td>
                                         <td>{userData.email}</td>
                                         <td>
-                                            <button className="btn btn-square btn-soft btn-lg btn-accent"><FaUsers className="text-xl" /></button>
+                                            {
+                                                userData.role === "admin" ?
+                                                    "Admin"
+                                                    :
+                                                    <button onClick={() => handleMakeAdmin(userData._id)} className="btn btn-square btn-soft btn-lg btn-accent"><FaUsers className="text-xl" /></button>
+                                            }
                                         </td>
                                         <td>
                                             <button onClick={() => handleDelete(userData._id)} className="btn btn-square btn-lg btn-soft btn-secondary"><RiDeleteBinLine className="text-xl" /></button>
