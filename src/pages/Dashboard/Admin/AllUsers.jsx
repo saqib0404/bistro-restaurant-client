@@ -5,12 +5,13 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure'
 import { FaUsers } from 'react-icons/fa'
 import { RiDeleteBinLine } from 'react-icons/ri'
 import { AuthContext } from '../../../providers/AuthProvider'
+import Swal from 'sweetalert2'
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useContext(AuthContext);
 
-    const { data: users = [] } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const data = await axiosSecure.get(`/users`)
@@ -19,7 +20,29 @@ const AllUsers = () => {
     })
 
     const handleDelete = id => {
-
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/users/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "User has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
     }
 
     return (
