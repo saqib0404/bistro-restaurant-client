@@ -35,7 +35,7 @@ const Dashboard = () => {
                         isAdmin ? <>
                             <NavLink className={navLinkClass} to='/dashboard/user-home'><FaHome />  ADMIN HOME</NavLink>
                             <NavLink className={navLinkClass} to='/dashboard/add-items'> <PiForkKnifeFill />ADD ITEMS</NavLink>
-                            <NavLink className={navLinkClass} to='/dashboard/carasdt'><FaBars />  MANAGE ITEMS</NavLink>
+                            <NavLink className={navLinkClass} to='/dashboard/manage-items'><FaBars />  MANAGE ITEMS</NavLink>
                             <NavLink className={navLinkClass} to='/dashboard/cart'><FaCartShopping /> MY CART</NavLink>
                             <NavLink className={navLinkClass} to='/dashboard/carddt'><FaBook /> MANAGE BOOKINGS</NavLink>
                             <NavLink className={navLinkClass} to='/dashboard/carqqt'><MdReviews />  ADD REVIEW</NavLink>
