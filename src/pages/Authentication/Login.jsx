@@ -47,6 +47,8 @@ const Login = () => {
                         })
                         setDisableBtn(false)
                         navigate(from, { replace: true });
+                    }).catch(err => {
+                        setAuthError(err?.message);
                     })
             })
             .catch((error) => {

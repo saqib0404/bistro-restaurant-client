@@ -8,14 +8,14 @@ const useAdminCheck = () => {
     const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure()
 
-    const { data: isAdmin } = useQuery({
+    const { data: isAdmin, isPending: isAdminLoading } = useQuery({
         queryKey: ['userEmail', user?.email],
         queryFn: async () => {
             const result = await axiosSecure.get(`/users/admin/${user.email}`)
             return result.data
         }
     })
-    return [isAdmin]
+    return [isAdmin, isAdminLoading]
 }
 
 export default useAdminCheck
