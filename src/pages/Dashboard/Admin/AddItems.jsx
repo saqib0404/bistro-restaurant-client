@@ -1,33 +1,61 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SectionTitle from '../../../components/SectionTitle'
 import { useForm } from 'react-hook-form';
 import { PiForkKnifeFill } from 'react-icons/pi';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddItems = () => {
+    const axiosPublic = useAxiosPublic()
+    const axiosSecure = useAxiosSecure();
+    const [postLoading, setPostLoading] = useState(false)
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-        watch,
-    } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-        // Here you would typically send your form data to an API
-        // For file uploads, you'd usually use FormData:
-        // const formData = new FormData();
-        // formData.append('recipeName', data.recipeName);
-        // formData.append('category', data.category);
-        // formData.append('price', data.price);
-        // formData.append('recipeDetails', data.recipeDetails);
-        // if (data.recipeImage && data.recipeImage[0]) {
-        //   formData.append('recipeImage', data.recipeImage[0]);
-        // }
-        // fetch('/api/recipes', { method: 'POST', body: formData })
-        //   .then(response => response.json())
-        //   .then(data => console.log('Success:', data))
-        //   .catch(error => console.error('Error:', error));
+    const onSubmit = async (data) => {
+        setPostLoading(true)
+        const imageFile = { image: data.recipeImage[0] }
+        try {
+            const res = await axiosPublic.post(image_hosting_api, imageFile, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(res.data);
+            if (res.data.success) {
+                const image = res.data.data.display_url;
+                const menuItem = {
+                    image,
+                    name: data.recipeName,
+                    price: data.price,
+                    recipe: data.recipeDetails
+                }
+                axiosSecure.post('/menus', menuItem)
+                    .then(res => {
+                        if (res.data.insertedId) {
+                            reset();
+                            Swal.fire({
+                                icon: "success",
+                                title: `${data.recipeName} has been added`,
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                            setPostLoading(false)
+                        }
+                    }).catch(err => {
+                        setPostLoading(false)
+                        console.log(err);
+                    })
+                alert('Image uploaded! URL: ' + imageUrl);
+            }
+        } catch (error) {
+            setPostLoading(false)
+            console.error('Error uploading image:', error);
+        }
     };
 
     return (
@@ -50,7 +78,7 @@ const AddItems = () => {
                                 id="recipeName"
                                 placeholder="Recipe name"
                                 required
-                                {...register('recipeName', )}
+                                {...register('recipeName',)}
                                 className={`shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.recipeName ? 'border-red-500' : 'border-gray-300'
                                     }`}
                             />
@@ -132,10 +160,16 @@ const AddItems = () => {
 
                         <button
                             type="submit"
+                            disabled={postLoading}
                             className="bg-gradient-to-r from-[#876024] to-[#B27F2F] text-white font-bold py-2 px-6 rounded-md focus:outline-none focus:shadow-outline flex items-center transition duration-200 ease-in-out"
                         >
                             Add Item
-                            <PiForkKnifeFill className='ml-2 text-lg' />
+                            {
+                                postLoading ?
+                                    <span className="loading loading-spinner loading-md ml-2"></span>
+                                    :
+                                    <PiForkKnifeFill className='ml-2 text-lg' />
+                            }
                         </button>
                     </form>
                 </div>
