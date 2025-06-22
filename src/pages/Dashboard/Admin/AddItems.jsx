@@ -25,13 +25,14 @@ const AddItems = () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.success) {
                 const image = res.data.data.display_url;
                 const menuItem = {
                     image,
                     name: data.recipeName,
-                    price: data.price,
+                    price: Number(data.price),
+                    category:data.category,
                     recipe: data.recipeDetails
                 }
                 axiosSecure.post('/menus', menuItem)
@@ -50,7 +51,6 @@ const AddItems = () => {
                         setPostLoading(false)
                         console.log(err);
                     })
-                alert('Image uploaded! URL: ' + imageUrl);
             }
         } catch (error) {
             setPostLoading(false)
