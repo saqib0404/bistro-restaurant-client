@@ -52,9 +52,9 @@ const Cart = () => {
                     <button className="btn w-min bg-[#D1A054] text-white">Pay</button>
                 </div>
 
-                <div className="overflow-x-auto my-11 rounded-t-xl">
+                <div className="overflow-x-auto my-11 rounded-t-xl max-h-[70vh] overflow-y-auto shadow-md ">
 
-                    <table className="table max:h-[70vh] overflow-y-auto shadow-md">
+                    <table className="table ">
                         {/* head */}
                         <thead className="bg-[#D1A054] text-lg text-white font-medium ">
                             <tr >
@@ -65,7 +65,8 @@ const Cart = () => {
                                 <td>ACTION</td>
                             </tr>
                         </thead>
-                        <tbody className="text-lg">
+
+                        <tbody className="text-lg ">
                             {/* row 1 */}
                             {
                                 cart.length ?

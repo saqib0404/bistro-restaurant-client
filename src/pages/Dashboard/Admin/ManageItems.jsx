@@ -45,7 +45,8 @@ const ManageItems = () => {
             </div>
 
             <div className="bg-white p-4 rounded-lg max-w-screen-xl mx-auto mt-16">
-                <div className="overflow-x-auto my-11 rounded-t-xl h-[70vh] overflow-y-auto shadow-md">
+                <h2 className="text-3xl font-semibold">Total Items: {menus.length && menus.length}</h2>
+                <div className="overflow-x-auto mt-2 mb-11 rounded-t-xl h-[70vh] overflow-y-auto shadow-md">
                     <table className="table">
                         {/* head */}
                         <thead className="bg-[#D1A054] text-lg text-white font-medium">
@@ -76,9 +77,9 @@ const ManageItems = () => {
                                         <td>{menuItem.name}</td>
                                         <td>${menuItem.price}</td>
                                         <td>
-                                            <button onClick={() => handleEdit(menuItem._id)} className="btn btn-square btn-lg btn-dash btn-warning"><FaRegEdit className="text-xl" >
-                                                <Link to={``} />
-                                            </FaRegEdit></button>
+                                            <Link to={`/dashboard/update-item/${menuItem._id}`} >
+                                                <button className="btn btn-square btn-lg btn-dash btn-warning"><FaRegEdit className="text-xl" ></FaRegEdit> </button>
+                                            </Link>
                                         </td>
                                         <td>
                                             <button onClick={() => handleDelete(menuItem._id)} className="btn btn-square btn-lg btn-soft btn-secondary"><RiDeleteBinLine className="text-xl" /></button>

@@ -81,9 +81,9 @@ const AllUsers = () => {
             <div className="bg-white p-4 rounded-lg max-w-screen-xl mx-auto mt-16">
                 <h2 className="text-3xl font-semibold">Total Users: {users.length || "0"}</h2>
 
-                <div className="overflow-x-auto my-11 rounded-t-xl">
+                <div className="overflow-x-auto my-11 rounded-t-xl max-h-[70vh] overflow-y-auto shadow-md">
 
-                    <table className="table max:h-[70vh] overflow-y-auto shadow-md">
+                    <table className="table">
                         {/* head */}
                         <thead className="bg-[#D1A054] text-lg text-white font-medium">
                             <tr >
@@ -94,6 +94,7 @@ const AllUsers = () => {
                                 <td>ACTION</td>
                             </tr>
                         </thead>
+                        
                         <tbody className="text-lg">
                             {/* row 1 */}
                             {
