@@ -4,10 +4,21 @@ import { AuthContext } from '../../providers/AuthProvider';
 import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useCart from '../../hooks/useCart';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useCartLength from '../../hooks/useCartLength';
 
 const Navbar = () => {
     const { user, userSignOut } = useContext(AuthContext);
-    const [cart] = useCart()
+    const axiosSecure = useAxiosSecure()
+    const [cartLength] = useCartLength()
+    // const { data: cartLength = 0 } = useQuery({
+    //     queryKey: ['cart', user?.email],
+    //     queryFn: async () => {
+    //         const res = await axiosSecure.get(`/carts-length?email=${user?.email}`)
+    //         return res.data
+    //     },
+    // })
 
     const handleSignOut = () => {
         userSignOut()
@@ -31,7 +42,7 @@ const Navbar = () => {
         <li><NavLink className={navLinkClass} to={'/menu'}>Menu</NavLink></li>
         <li>
             <NavLink className={navLinkClass} to={'/dashboard/cart'}>
-                <FaShoppingCart /> <div className="badge badge-sm badge-secondary">{`+${cart.length}` || "+0"}</div>
+                <FaShoppingCart /> <div className="badge badge-sm badge-secondary">{`+${typeof cartLength === 'number' && cartLength > 0 ? cartLength : "0"}`}</div>
             </NavLink>
         </li>
         <li><NavLink className={navLinkClass} to={'/order'}>Order</NavLink></li>

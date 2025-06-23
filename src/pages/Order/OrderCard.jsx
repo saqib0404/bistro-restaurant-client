@@ -4,14 +4,14 @@ import Swal from 'sweetalert2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
-import useCart from '../../hooks/useCart';
+import useCartLength from '../../hooks/useCartLength';
 
 const OrderCard = ({ menus }) => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
     const location = useLocation()
     const axiosSecure = useAxiosSecure()
-    const [, refetch] = useCart()
+    const [, refetch] = useCartLength()
 
     const handleAddToCart = food => {
         if (user && user.email) {

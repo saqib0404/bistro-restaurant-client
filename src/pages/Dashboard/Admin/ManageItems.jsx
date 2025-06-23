@@ -4,35 +4,37 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useMenu from '../../../hooks/useMenu';
 import { RiDeleteBinLine } from 'react-icons/ri';
 import { FaRegEdit } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 const ManageItems = () => {
-    const [menus] = useMenu()
+    const [menus, , refetch] = useMenu()
     const axiosSecure = useAxiosSecure()
 
     const handleDelete = id => {
-        // Swal.fire({
-        //     title: "Are you sure?",
-        //     text: "You won't be able to revert this!",
-        //     icon: "warning",
-        //     showCancelButton: true,
-        //     confirmButtonColor: "#3085d6",
-        //     cancelButtonColor: "#d33",
-        //     confirmButtonText: "Yes, delete it!"
-        // }).then((result) => {
-        //     if (result.isConfirmed) {
-        //         axiosSecure.delete(`/carts/${id}`)
-        //             .then(res => {
-        //                 if (res.data.deletedCount) {
-        //                     refetch()
-        //                     Swal.fire({
-        //                         title: "Deleted!",
-        //                         text: "Your file has been deleted.",
-        //                         icon: "success"
-        //                     });
-        //                 }
-        //             })
-        //     }
-        // });
+        Swal.fire({
+            title: "Are you sure you want to Delete this?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/menus/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your file has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+        });
 
     }
 
@@ -43,7 +45,7 @@ const ManageItems = () => {
             </div>
 
             <div className="bg-white p-4 rounded-lg max-w-screen-xl mx-auto mt-16">
-                <div className="overflow-x-auto my-11 rounded-t-xl">
+                <div className="overflow-x-auto my-11 rounded-t-xl h-[70vh] overflow-y-auto shadow-md">
                     <table className="table">
                         {/* head */}
                         <thead className="bg-[#D1A054] text-lg text-white font-medium">
@@ -74,7 +76,9 @@ const ManageItems = () => {
                                         <td>{menuItem.name}</td>
                                         <td>${menuItem.price}</td>
                                         <td>
-                                            <button onClick={() => handleEdit(menuItem._id)} className="btn btn-square btn-lg btn-dash btn-warning"><FaRegEdit className="text-xl" /></button>
+                                            <button onClick={() => handleEdit(menuItem._id)} className="btn btn-square btn-lg btn-dash btn-warning"><FaRegEdit className="text-xl" >
+                                                <Link to={``} />
+                                            </FaRegEdit></button>
                                         </td>
                                         <td>
                                             <button onClick={() => handleDelete(menuItem._id)} className="btn btn-square btn-lg btn-soft btn-secondary"><RiDeleteBinLine className="text-xl" /></button>

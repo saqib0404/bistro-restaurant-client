@@ -83,7 +83,7 @@ const AllUsers = () => {
 
                 <div className="overflow-x-auto my-11 rounded-t-xl">
 
-                    <table className="table">
+                    <table className="table max:h-[70vh] overflow-y-auto shadow-md">
                         {/* head */}
                         <thead className="bg-[#D1A054] text-lg text-white font-medium">
                             <tr >
