@@ -10,13 +10,14 @@ import Login from "../pages/Authentication/Login";
 import Contacts from "../pages/Contacts/Contacts";
 import Register from "../pages/Authentication/Register";
 import PrivateRoute from "./PrivateRoute";
-import Cart from "../pages/Dashboard/Cart/Cart";
+import Cart from "../pages/Dashboard/User/Cart";
 import Dashboard from "../layout/Dashboard";
 import AllUsers from "../pages/Dashboard/Admin/AllUsers";
 import AdminRoute from "./AdminRoute";
 import AddItems from "../pages/Dashboard/Admin/AddItems";
 import ManageItems from "../pages/Dashboard/Admin/ManageItems";
 import UpdateItem from "../pages/Dashboard/Admin/UpdateItem";
+import Payment from "../pages/Dashboard/User/Payment";
 
 export const router = createBrowserRouter([
     // General Layout
@@ -69,6 +70,10 @@ export const router = createBrowserRouter([
             {
                 path: '/dashboard/user-home',
                 element: <Register />
+            },
+            {
+                path: '/dashboard/payment',
+                element: <Payment />
             },
             {
                 path: '/dashboard/reservation',
